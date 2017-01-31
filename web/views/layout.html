@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  {% include 'header.html' %}
+  {% include 'head.html' %}
 </head>
 
 <body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+  {% include 'header.html' %}
+
   {% include 'nav.html' %}
 
-  {% block content %}{% endblock %}
+  <div id="main">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% include 'footer.html' %}
+</div>
+
+{% include 'scripts.html' %}
 </body>
 </html>
