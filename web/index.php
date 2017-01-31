@@ -1,5 +1,7 @@
 <?php
 
+
+
 require('../vendor/autoload.php');
 
 $app = new Silex\Application();
@@ -39,6 +41,11 @@ $app->get('/cowsay', function() use($app) {
 $app->get('/hello', function() use($app) {
   $app['monolog']->addDebug('logging output.');
   return str_repeat('Hello', getenv('TIMES'));
+});
+
+$app->get('/login', function() use($app) {
+  $app['monolog']->addDebug('logging output for login.');
+  return $app['twig']->render("login.twig");
 });
 
 $app->get('/db/', function() use($app) {
