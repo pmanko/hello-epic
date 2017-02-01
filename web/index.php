@@ -37,10 +37,11 @@ $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
                 'https://www.googleapis.com/auth/userinfo.profile'
             ),
             'user_endpoint' => 'https://www.googleapis.com/oauth2/v1/userinfo'
-        )        
+        )
     )
 ));
-
+// Provides URL generation
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 // Provides CSRF token generation
 // You will have to include symfony/form in your composer.json
