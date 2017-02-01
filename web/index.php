@@ -5,6 +5,8 @@ define('EPIC_API_KEY', getenv('DATABASE_URL'));
 define('EPIC_API_SECRET', getenv('DATABASE_URL'));
 // define('HEROKU_API_KEY',     '');
 // define('HEROKU_API_SECRET',  '');
+define('GOOGLE_API_KEY', '204527679629-48cuhsovqfutqlagnu071iq7p6etdia4.apps.googleusercontent.com');
+define('GOOGLE_API_SECRET', 'n6KGcVz-1HDBXlUHB462iwze');
 
 $app = new Silex\Application();
 $app['debug'] = true;
