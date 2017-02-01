@@ -45,6 +45,16 @@ $app->get('/login', function() use($app) {
   return $app['twig']->render("login.twig");
 });
 
+$app->get('/provider', function() use($app) {
+  $app['monolog']->addDebug('logging output for login.');
+  return $app['twig']->render("provider.twig");
+});
+
+$app->get('/patient', function() use($app) {
+  $app['monolog']->addDebug('logging output for login.');
+  return $app['twig']->render("patient.twig");
+});
+
 $app->get('/db/', function() use($app) {
   $st = $app['pdo']->prepare('SELECT name FROM test_table');
   $st->execute();
@@ -55,20 +65,20 @@ $app->get('/db/', function() use($app) {
     $names[] = $row;
   }
 
-  $app->get('/auth/redirect', function() use($app) {
-    $st = $app['pdo']->prepare('SELECT name FROM test_table');
-    $st->execute();
-
-    $names = array();
-    while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-      $app['monolog']->addDebug('Row ' . $row['name']);
-      $names[] = $row;
-    }
-
-
   return $app['twig']->render('database.twig', array(
     'names' => $names
   ));
+});
+
+$app->get('/auth/redirect', function() use($app) {
+  $st = $app['pdo']->prepare('SELECT name FROM test_table');
+  $st->execute();
+
+  $names = array();
+  while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+    $app['monolog']->addDebug('Row ' . $row['name']);
+    $names[] = $row;
+  }
 });
 
 $app->run();
