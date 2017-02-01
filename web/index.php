@@ -1,24 +1,26 @@
 <?php
 require('../vendor/autoload.php');
 
-define('EPIC_API_KEY', getenv('DATABASE_URL'));
-define('EPIC_API_SECRET', getenv('DATABASE_URL'));
+define('CLIENT_ID', '82768a0a-d830-47fc-8e51-e1b410c98fa4');
+//define('EPIC_API_SECRET', getenv('DATABASE_URL'));
 // define('HEROKU_API_KEY',     '');
 // define('HEROKU_API_SECRET',  '');
 define('GOOGLE_API_KEY', '204527679629-48cuhsovqfutqlagnu071iq7p6etdia4.apps.googleusercontent.com');
 define('GOOGLE_API_SECRET', 'n6KGcVz-1HDBXlUHB462iwze');
+
+define('EPIC_BASE_URI', 'https://open-ic.epic.com/argonaut/api/FHIR/Argonaut/');
 
 $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
     'oauth.services' => array(
-        // 'EPIC' => array(
-        //     'key' => EPIC_API_KEY,
-        //     'secret' => EPIC_API_SECRET,
-        //     // 'scope' => array('email'),
-        //     // 'user_endpoint' => 'https://graph.facebook.com/me'
-        // ),
+        'EPIC' => array(
+            'key' => EPIC_API_KEY,
+            'secret' => EPIC_API_SECRET,
+            'scope' => "",
+            'user_endpoint' => EPIC_BASE_URI
+        ),
         'Heroku' => array(
             'key' => HEROKU_API_KEY,
             'secret' => HEROKU_API_SECRET,
@@ -39,7 +41,8 @@ $app->register(new Gigablah\Silex\OAuth\OAuthServiceProvider(), array(
                 'https://www.googleapis.com/auth/userinfo.profile'
             ),
             'user_endpoint' => 'https://www.googleapis.com/oauth2/v1/userinfo'
-        )
+        ),
+        ''
     )
 ));
 // Provides URL generation
@@ -64,11 +67,11 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
                 //'callback_path' => '/auth/{service}/callback',
                 //'check_path' => '/auth/{service}/check',
                 'failure_path' => '/login',
-                'with_csrf' => true
+                'with_csrf' => false
             ),
             'logout' => array(
                 'logout_path' => '/logout',
-                'with_csrf' => true
+                'with_csrf' => false
             ),
             // OAuthInMemoryUserProvider returns a StubUser and is intended only for testing.
             // Replace this with your own UserProvider and User class.
@@ -114,7 +117,7 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
         $app['user'] = $token->getUser();
     }
 });
-
+// https://open-ic.epic.com/argonaut/oauth2/authorize?response_type=code&client_id=352aafc7-bcb5-496a-8bfd-b098e0f93060&redirect_uri=http://cryptic-beyond-91523.herokuapp.com/login
 $app->get('/login', function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
     $app['monolog']->addDebug('logging output for login.');
     $services = array_keys($app['oauth.services']);
