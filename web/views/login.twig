@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<section class='main' id='content'>
 <form class="form-signin">
   <h2 class="form-signin-heading">Please sign in</h2>
   <div class='row uniform'>
@@ -29,9 +30,27 @@
   </div>
 
   <div class="row uniform">
-    <div class='3u'><div class='6u'><button class="special" type="submit">Sign in</button></div><div class='3u'></div>
+    <div class='3u'></div><div class='6u'><button class="special" type="submit">Sign in</button></div><div class='3u'></div>
   </div>
 </form>
+</section>
+<section>
+  <h3>Oauth</h3>
+  {% if error %}
+  <p>{{ error }}</p>
+  {% endif %}
+  {% if app.user %}
+    <p>Hello {{ app.user.username }}! Your email is {{ app.user.email }}</p>
+    <a href="{{ logout_path }}">Logout</a>
+  {% else %}
+    <ul>
+      <li><a href="{{ login_paths.google }}">Login with Google</a></li>
+
+    </ul>
+  {% endif %}
+
+
+</section>
 
 
 {% endblock %}
