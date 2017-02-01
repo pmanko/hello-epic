@@ -114,9 +114,10 @@ $app->before(function (Symfony\Component\HttpFoundation\Request $request) use ($
 });
 
 $app->get('/login', function (Symfony\Component\HttpFoundation\Request $request) use ($app) {
+    $app['monolog']->addDebug('logging output for login.');
     $services = array_keys($app['oauth.services']);
 
-    return $app['twig']->render('index.twig', array(
+    return $app['twig']->render('login.twig', array(
         'login_paths' => $app['oauth.login_paths'],
         'logout_path' => $app['url_generator']->generate('logout', array(
             '_csrf_token' => $app['oauth.csrf_token']('logout')
@@ -142,10 +143,10 @@ $app->get('/hello', function() use($app) {
   return str_repeat('Hello', getenv('TIMES'));
 });
 
-$app->get('/login', function() use($app) {
-  $app['monolog']->addDebug('logging output for login.');
-  return $app['twig']->render("login.twig");
-});
+// $app->get('/login', function() use($app) {
+//   $app['monolog']->addDebug('logging output for login.');
+//   return $app['twig']->render("login.twig");
+// });
 
 $app->get('/provider', function() use($app) {
   $app['monolog']->addDebug('logging output for login.');
