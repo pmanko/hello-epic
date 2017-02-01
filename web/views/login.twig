@@ -30,7 +30,7 @@
   </div>
 
   <div class="row uniform">
-    <div class='3u'></div><div class='6u'><button class="special" type="submit">Sign in</button></div><div class='3u'></div>
+    <div class='3u'></div><div class='6u'><button class="special fit" type="submit">Sign in</button></div><div class='3u'></div>
   </div>
 </form>
 </section>
@@ -38,7 +38,7 @@
   <div class='row uniform'>
     <div class='3u 0u$(xsmall)'></div>
     <div class='6u 0u$(xsmall)'>
-      <h3>Oauth</h3>
+      <h2>Oauth</h2>
       {% if error %}
       <p>{{ error }}</p>
       {% endif %}
@@ -46,10 +46,8 @@
         <p>Hello {{ app.user.username }}! Your email is {{ app.user.email }}</p>
         <a href="{{ logout_path }}">Logout</a>
       {% else %}
-        <ul>
-          <li><a href="https://open-ic.epic.com/argonaut/oauth2/authorize?response_type=code&client_id=82768a0a-d830-47fc-8e51-e1b410c98fa4&redirect_uri=https://cryptic-beyond-91523.herokuapp.com/login&scope=patient/*.read">Login with OpenEPIC</a></li>
-          <li><a href="http://fhir-registry.smarthealthit.org/Profile/oauth-uris#authorize?response_type=code&client_id=9dea1c95-06ff-4f58-ae57-6780b7cecd3b&redirect_uri=https://cryptic-beyond-91523.herokuapp.com/login&scope=patient/*.read">Login with SOF Sandbox</a></li>
-        </ul>
+          <a class='fit' href="https://open-ic.epic.com/argonaut/oauth2/authorize?response_type=code&client_id=82768a0a-d830-47fc-8e51-e1b410c98fa4&redirect_uri=https://cryptic-beyond-91523.herokuapp.com/login&scope=patient/*.read">Login with OpenEPIC</a></li>
+          <a class='fit' href="https://authorize.smarthealthit.org/?response_type=code&client_id=9dea1c95-06ff-4f58-ae57-6780b7cecd3b&redirect_uri=https://cryptic-beyond-91523.herokuapp.com/login&scope=patient/*.read">Login with SOF Sandbox</a></li>
       {% endif %}
     </div>
 
